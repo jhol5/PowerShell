@@ -1,0 +1,1 @@
+Get-DhcpServerv4Scope | Get-DhcpServerv4Lease | ?{$_.ClientId -like "00-80-4f-83-31-99"}
