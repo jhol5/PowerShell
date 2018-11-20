@@ -1,4 +1,12 @@
 function Get-HVProblemMachines {
+    [CmdletBinding()]
+	Param(
+        [Parameter(Mandatory=$true)]
+        [String]$HorizonCredStore,
+        [Parameter(Mandatory=$true)]
+        [String]$HorizonServer
+	)
+
 <#
 	.SYNOPSIS
 	Returns the problem VM's in the View Environment.
@@ -8,8 +16,7 @@ function Get-HVProblemMachines {
 	The original script is at the end of this page, above the summary: https://blogs.vmware.com/euc/2017/01/vmware-horizon-7-powercli-6-5.html. I have removed the reboot and need to connect to vCenter and changed how the script authenticates to the View Admin server.
 
 	.EXAMPLE
-		Add-HVDesktop -PoolName 'ManualPool' -Machines 'manualPool1', 'manualPool2' -Confirm:$false
-		Add managed manual VMs to existing manual pool
+		Get-HVProblemMachines -HorizonCredStore C:\Scripts\credfileview.xml -HorizonServer 'hva.mydomain.com'
 
 	.NOTES
 		Original Author             : Praveen Mathamsetty.
@@ -30,15 +37,13 @@ function Get-HVProblemMachines {
     Import-Module VMware.VimAutomation.Core
     Import-Module VMware.Hv.Helper
 
+
 ###################################################################
 #                    Variables                                    #
 ###################################################################
 
     #Import Credentail Files New-VICredentialStoreItem -host <vcenter server IP address> -user <username> -password <password> -file C:\Scripts\credfilevcenter.xml
-    $vcUser = Get-VICredentialStoreItem -file "C:\Scripts\view.xml"
-
-    #Horizon Connection Server
-    $cs = 'view.mydomain.com'
+    $csUser = Get-VICredentialStoreItem -File $CredFile
 
     $baseStates = @(
         'PROVISIONING_ERROR',
@@ -58,7 +63,7 @@ function Get-HVProblemMachines {
 #                    Initialize                                   #
 ###################################################################
     # --- Connect to Horizon Connection Server API Service ---
-    $hvServer1 = Connect-HVServer -Server $cs -User $csUser.User -Password $csUser.Password
+    $hvServer1 = Connect-HVServer -Server $HorizonServer -User $csUser.User -Password $csUser.Password
 
     # --- Get Services for interacting with the View API Service ---
     $Services1 = $hvServer1.ExtensionData
@@ -77,9 +82,58 @@ function Get-HVProblemMachines {
         }
         
         # --- Disconnect from View Admin ---
-        Disconnect-HVServer -Server $cs -Confirm:$false | Out-Null
+        Disconnect-HVServer -Server $HorizonServer -Confirm:$false | Out-Null
     } else {
         Write-Output "", "Failed to login in to Connection Server."
     }
 #endregion main
 }
+
+# SIG # Begin signature block
+# MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1CF8YTDHyhtbKNKQZwjvJycN
+# 4pGgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
+# FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
+# UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
+# JomT8ixkARkWBWxvY2FsMRMwEQYKCZImiZPyLGQBGRYDdGpjMRIwEAYKCZImiZPy
+# LGQBGRYCYWQxDjAMBgNVBAsTBXN0YWZmMQ4wDAYDVQQLEwVVU0VSUzESMBAGA1UE
+# AxMJQTAwMzAzMTQ5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt1qK
+# nm4sQhK8hymiP8M3P3G3uDkaFExk7RVADl4hQZiQSMmog2kkiKrqECzqp6ulhBJP
+# BVOWXLp3aBZCsslGcvLwR8eKZWhk2+7L5KdXKfb3Eo7jfZDQV/4SUi1cEuNZ6uu+
+# 5d8kpb+DZKxjwN7+u/7rK8q8Urnl44jiAh0gFx8r53/CHmkeYfYozIziI2yHsmiM
+# vH+WlvXBA7JH8pCoaK98CBm4Slyl9iCO6RXudtD5einnbOxePaUPM/xLcI7wCP3L
+# ppiKsJPyozGIK8MXOh4VsUDG/bq6r185vk8tV79OkHhUgaGvbOGi5xw5mJGleWkN
+# /c/FpN99iZhLbEBccwIDAQABo4ICajCCAmYwJQYJKwYBBAGCNxQCBBgeFgBDAG8A
+# ZABlAFMAaQBnAG4AaQBuAGcwEwYDVR0lBAwwCgYIKwYBBQUHAwMwDgYDVR0PAQH/
+# BAQDAgeAMB0GA1UdDgQWBBQq4YMEvaBKNG4Lj5YNmOg2vaOA9DAfBgNVHSMEGDAW
+# gBRunUTjaRhGdTlUbZ403p4E4033qjCB2QYDVR0fBIHRMIHOMIHLoIHIoIHFhoHC
+# bGRhcDovLy9DTj1hZC1XMTZNQUlORENQMDEtQ0EsQ049VzE2TUFJTkRDUDAxLENO
+# PUNEUCxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2aWNlcyxDTj1TZXJ2aWNlcyxDTj1D
+# b25maWd1cmF0aW9uLERDPWFkLERDPXRqYyxEQz1sb2NhbD9jZXJ0aWZpY2F0ZVJl
+# dm9jYXRpb25MaXN0P2Jhc2U/b2JqZWN0Q2xhc3M9Y1JMRGlzdHJpYnV0aW9uUG9p
+# bnQwgcgGCCsGAQUFBwEBBIG7MIG4MIG1BggrBgEFBQcwAoaBqGxkYXA6Ly8vQ049
+# YWQtVzE2TUFJTkRDUDAxLUNBLENOPUFJQSxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2
+# aWNlcyxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPWFkLERDPXRqYyxE
+# Qz1sb2NhbD9jQUNlcnRpZmljYXRlP2Jhc2U/b2JqZWN0Q2xhc3M9Y2VydGlmaWNh
+# dGlvbkF1dGhvcml0eTAxBgNVHREEKjAooCYGCisGAQQBgjcUAgOgGAwWQTAwMzAz
+# MTQ5QGFkLnRqYy5sb2NhbDANBgkqhkiG9w0BAQsFAAOCAQEAWsbGFusPT221Js4n
+# KfxPXkKWnIE439KRq59N+z3U38s7/Soi3GsnGmRSo2y2DgX2+2hJ6tlQk6ezaVfO
+# ssbRiry3hTs+ONDCX6oqNS2Amyj/on4KceMve22UZYqy5j+7kBeO1Ac4rxA/BWyU
+# gXScTSxfk08ZPjG75CSyKNsgOt8dUJyNWjxP4TaWCJ7q+EcxpO4oiHzceuPWEDr4
+# 7DGqAx0+oQwUhRAHeejaPuIWJGCaYEr1PpA372dFFbnOmrhUQVoJS56nbUFUxpb5
+# dcUAVrPx1hHIHiYXYyh4JJXYs6AeJ8rbdw1MQGSZUj0a8M72zeWwGM4DUh8gY5A9
+# AbgcATGCAhUwggIRAgEBMHQwXTEVMBMGCgmSJomT8ixkARkWBWxvY2FsMRMwEQYK
+# CZImiZPyLGQBGRYDdGpjMRIwEAYKCZImiZPyLGQBGRYCYWQxGzAZBgNVBAMTEmFk
+# LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
+# oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
+# BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
+# CQQxFgQUiJBXkirZCYF0KjaeRvUclr2SWUowDQYJKoZIhvcNAQEBBQAEggEAc8Kf
+# vgAFE3s9Q6E6oDzoOfpNXaO/QUjwEVAfbpfRTe757IdPOb/PQxbpFCRYlDhwVirX
+# fW5qGCp9QuTsQIO4M7LzACEqZr+9z3/cJyo+JPOSrD8+aOpqL/k47s0PtwmnjSTw
+# TrLckjQKy6M2fAJv0fCG1SV0EPDTVx03a3s/KLpHOdNu/ngeDNKxiJt/2mzknXPv
+# +tfvr6BSoJuSv3Ebgjcw4W2p1Pp2aHvtaIv91WDCUATKKw/lNSN8Q/1gW6gfJR9V
+# oY8CaHQ7BNr8adTYQrCrU6664vTLJp/TjcH5O/gNbCH1hu9iR/UuuggwrrhQdLO8
+# JgLeBROeLUQLfshbxA==
+# SIG # End signature block
