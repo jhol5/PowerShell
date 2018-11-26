@@ -27,7 +27,7 @@
 		Original Author email       : pmathamsetty@vmware.com
 		Modified/Updated By			: Joshua Holcomb
 		Modified/Updated email		: joshua.holcomb@tjc.edu
-		Version                     : 1
+		Version                     : 1.0.1
 		Dependencies                : Make sure to have loaded VMware.HvHelper module loaded on your machine, see: https://blogs.vmware.com/euc/2017/01/vmware-horizon-7-powercli-6-5.html. Also it's state later in the script but you need to run "New-VICredentialStoreItem -host <vcenter server IP address> -user <username> -password <password> -file C:\Scripts\credfilevcenter.xml" to generate a secure encryped credental file first.
 
 		===Tested Against Environment====
@@ -41,7 +41,6 @@
     Import-Module VMware.VimAutomation.HorizonView
     Import-Module VMware.VimAutomation.Core
     Import-Module VMware.Hv.Helper
-
 
 ###################################################################
 #                    Variables                                    #
@@ -70,7 +69,7 @@
 ###################################################################
     # --- Connect to Horizon Connection Server API Service ---
     $hvServer1 = Connect-HVServer -Server $HorizonServer -User $hvUser.User -Password $hvUser.Password
-    Connect-VIServer -Server $vCenterServer -User $User.User -Password $User.Password
+    Connect-VIServer -Server $vCenterServer -User $viUser.User -Password $viUser.Password
 
     # --- Get Services for interacting with the View API Service ---
     $Services1 = $hvServer1.ExtensionData
@@ -85,8 +84,7 @@
             
             foreach ($ProblemVM in $ProblemVMs) {
                 $vm = Get-VM -Name $ProblemVM.Base.Name
-                Restart-VMGuest -VM $vm
-                
+                if($vm.PowerState === 'PoweredOn') { Restart-VMGuest -VM $vm }
             }
         }
         
@@ -102,8 +100,8 @@
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUWNUxs3MSZYb2V2794GWlbzdf
-# IhmgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUQqNnQIzC+W2xSXD31KUL4u03
+# ZkKgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -139,11 +137,11 @@
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUaRXaNA/W5qppZd24U1SJSHUSfBswDQYJKoZIhvcNAQEBBQAEggEAJfWl
-# lSN/YrwY562EwUCQMLH//xeGSjthk/meFFsX76u4CNjX4OqVnCK9j1Cm030J2h4M
-# 9Er0hCaZOvqjmuw47hc6z8b2LWcKFuYJre0MNIAwjiO1NOWS2SHT62oRVJ2BXP+Q
-# 2CW0iIFHAd8BiNFLEkD7jtH27X/3c8GbY31+J7hHvrZ0NPry9o3kZ6SPbo1oIF1B
-# WIUe/oHJatVofAIkZDrMrp6a2SFPCx+QOkt2gpw1DW+1Cp9Pg4SOlaQPyHWoIajB
-# 3TSQ5uKEQ3elhLaHv+nL/Sff0TdUJDTM5SLVI70ibrWwueDCDVGu2Qsen+X7mIGr
-# WcyKBTuGAcY1yl79uA==
+# CQQxFgQUIyxUL1R4RKfiVudYVWc2w6+IpxMwDQYJKoZIhvcNAQEBBQAEggEAl1w9
+# /k3TWVMEFzpm1MbB+I9nJbch1wAedrxmr2uKii54ukUFMV1K+WvYa7q7ORSZ3OQN
+# WCZpf81UZhjGJ64u/7QTJBj61O2zGDlVyBMKadeDwAe+y24bT+KUbd8Wi8CSeuj5
+# J9ZGPI1M8+X4AIZk9C9uzjCDI/nWLUZYY+mP3qlzLEOrgWc0eqe1jaNSqfWpMdHq
+# u+ZxVAE/nEVIX8YiDHHt9oWV+MoGCedUcZRMjUyW4EH46ayhXnuLW/MWliM5HpKS
+# bgGT54JRabhMIEBomq/SENJ+bv82MxqCiqe+os2gFQvpbtibnRoGU6H7VVjXKjrf
+# OX4Zc4uByNlPcxFQGA==
 # SIG # End signature block
