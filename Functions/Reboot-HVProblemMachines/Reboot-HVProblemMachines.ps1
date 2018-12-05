@@ -84,7 +84,11 @@
             
             foreach ($ProblemVM in $ProblemVMs) {
                 $vm = Get-VM -Name $ProblemVM.Base.Name
-                if($vm.PowerState === 'PoweredOn') { Restart-VMGuest -VM $vm }
+                if($vm.PowerState -eq 'PoweredOn') { 
+                    Restart-VMGuest -VM $vm | Out-Null
+                    Write-Host ($ProblemVM.Base.Name + ' has started the reboot process.')
+                }
+                else { Write-Warning ($ProblemVM.Base.Name + ' is not powered on.') }
             }
         }
         
@@ -100,8 +104,8 @@
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUQqNnQIzC+W2xSXD31KUL4u03
-# ZkKgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUzl0DH9UglY8QIVQRqk3HPJ6e
+# WlSgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -137,11 +141,11 @@
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUIyxUL1R4RKfiVudYVWc2w6+IpxMwDQYJKoZIhvcNAQEBBQAEggEAl1w9
-# /k3TWVMEFzpm1MbB+I9nJbch1wAedrxmr2uKii54ukUFMV1K+WvYa7q7ORSZ3OQN
-# WCZpf81UZhjGJ64u/7QTJBj61O2zGDlVyBMKadeDwAe+y24bT+KUbd8Wi8CSeuj5
-# J9ZGPI1M8+X4AIZk9C9uzjCDI/nWLUZYY+mP3qlzLEOrgWc0eqe1jaNSqfWpMdHq
-# u+ZxVAE/nEVIX8YiDHHt9oWV+MoGCedUcZRMjUyW4EH46ayhXnuLW/MWliM5HpKS
-# bgGT54JRabhMIEBomq/SENJ+bv82MxqCiqe+os2gFQvpbtibnRoGU6H7VVjXKjrf
-# OX4Zc4uByNlPcxFQGA==
+# CQQxFgQUSbU5zGoHgW1pE+gtxNiecAuLgNIwDQYJKoZIhvcNAQEBBQAEggEABA6f
+# x/UI+H8zjtV8dc7nkWOpqv4snMKFkzsjPLI2bIvW0HNOL0a5cwkdfu+ds5zapaR4
+# PRKBN8tbcvv7/gKYqi0Jf42MZ3xOLEzKplC3wML3GKKF2/AMaevmn3Z4JcXMdRPV
+# PBuQI4I4Yy/0xukbf3rBmo+2zGlJPMF8lPLi1pV1EnxXGFQjjEvt5bZXUXXs6NeU
+# dmP1W2J8AAN9IyMR8sljLR2oIArpG2zZeJ51/PvQXTr96cU0n86KOHn/TcJ2xVTu
+# sYVf4rKY+q4PHFzdcxmmpLR2AQy/eoaYeHwGeSAEENQVNyirF/8LY/4bjaSfSYus
+# 9wrrCZ+U0vrXMQuBDw==
 # SIG # End signature block
