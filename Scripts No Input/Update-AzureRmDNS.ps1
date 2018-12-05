@@ -1,6 +1,6 @@
-$Records = Import-Csv C:\tjc.edu.csv
-$ZoneName = 'tjc.edu'
-$ResourceGroupName = 'dns'
+$Records = Import-Csv ''
+$ZoneName = ''
+$ResourceGroupName = ''
 
 foreach ($record in $Records) {
     if ( $record.Type -eq "Host (A)") {
