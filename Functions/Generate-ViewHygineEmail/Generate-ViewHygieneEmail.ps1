@@ -11,8 +11,10 @@ function Generate-ViewHygieneEmail {
         [Parameter(Mandatory=$true)]
             [Array]$To,
         [Parameter(Mandatory=$false)]
+            [AllowEmptyCollection()]
             [Array]$CC,
         [Parameter(Mandatory=$false)]
+            [AllowEmptyCollection()]
             [Array]$BCC,
         [Parameter(Mandatory=$true)]
             [String]$Subject
@@ -72,8 +74,8 @@ function Generate-ViewHygieneEmail {
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUG2rtdFX+602sJJ3U9Ed28NHR
-# N/OgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUo2ZecYFnFX8XkLV6KFdHVtbH
+# I7ugggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -109,11 +111,11 @@ function Generate-ViewHygieneEmail {
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQU7lAMhBZ4duZ+Ufk8p6rbXpog4IIwDQYJKoZIhvcNAQEBBQAEggEAApjY
-# 87kHeDgbvcnmwHIeIeT1oDL+mfQX2imZfKLW67zKHsFdopbXpMKq6JkvEkWKQQ0J
-# 9/uBdZpTchaRlSqfNEeRRz5kCdstjtB/56Xq1U09Ov6orE7kI9N7brFIWPUmpNe+
-# KPupGYn6GVnDp9Q2GgIqa3W/sk+B+3i4uFR+MaMrZTAnQyW07Bf0IhSO8MWqHUqB
-# Xdjc2lc+15AtzIVVPBL9/JYDD4mouAN6mz6csS6gkXZ/qIm+nZJ0Lo53TN0apcE4
-# AfT8b/ofcIM0PgPmmqhAzoPc2L5rrrQyihl+jgejEWmKqv8yimyqfZ+RiECiXDvQ
-# 2HALCoVR641ne2pA2Q==
+# CQQxFgQUnLSvGvQh9Mp6qW9slKDtRBpMMqYwDQYJKoZIhvcNAQEBBQAEggEAd6JT
+# HvrtcZSMgRMl2h1PJ5hcXouCmNxBK14fmmqdRcslh20+TAv4wKBePKqZvxLx51do
+# npqCsscDVL4JEvfAU8S97bxOH33sDdHBfFyLsah9iQKPey0XvHMV54wvE743QABE
+# XPpITlNtKLKC/PNBYvHYeVa0xsAdPN8ULN4fh7NqQxfQC/Ajut6bT7AnLHwfLmzp
+# 514ufzqRC5WWZKty/3hvwWq396p4yNcfbLuXzMWG9iYhkZJ1aG4o0q1hJ4nmCs8y
+# 2mis0N7nbsBpDH/etzKdBJ+J0AhXwSHu/A/FiCiNCgfGeUaNbBZ7Z5wjm6KHPTbU
+# jmzUBOTf36NDJhYTng==
 # SIG # End signature block
