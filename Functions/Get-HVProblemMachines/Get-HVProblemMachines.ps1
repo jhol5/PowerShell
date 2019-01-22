@@ -41,7 +41,7 @@ function Get-HVProblemMachines {
 ###################################################################
 
     #Import Credentail Files New-VICredentialStoreItem -host <vcenter server IP address> -user <username> -password <password> -file C:\Scripts\credfilevcenter.xml
-    $hvUser = Get-VICredentialStoreItem -File $CredFile
+    $hvUser = Get-VICredentialStoreItem -File $HorizonCredStore
 
     $baseStates = @(
         'PROVISIONING_ERROR',
@@ -80,7 +80,7 @@ function Get-HVProblemMachines {
         }
         
         # --- Disconnect from View Admin ---
-        Disconnect-HVServer -Server $HorizonServer -Confirm:$false | Out-Null
+        Disconnect-HVServer -Server $hvServer1 -Confirm:$false | Out-Null
     } else {
         Write-Output "", "Failed to login in to Connection Server."
     }
@@ -90,8 +90,8 @@ function Get-HVProblemMachines {
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU+m7M+nh3KgAvOG62Yi63vrwI
-# 3HSgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUngT044ibqp5YNj26XAcVyWw1
+# +f6gggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -127,11 +127,11 @@ function Get-HVProblemMachines {
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQU6m8XjFs0Ts7DP83RRRVW5/De95wwDQYJKoZIhvcNAQEBBQAEggEAIi+k
-# amMCN/iG5yY8oVaopqVqMCFS0eVfaeCQHKMR0pgODIZ80skd8WJCIpsSKa4DD88w
-# g1zeO40WLGElQJHV+svgU0AbOjlvMGulOFZIfHT4gga2WCzkK8w0ssDOzHKFS7qV
-# ZUpDR9nJIjgFTONNDL2dPkeY580lYiNK0jB1RbCJKptYfnQiOIR2zNFpqjxpyZmn
-# izQC4Uh3woVkNxficetHBa07vGB7K2MnLdo/QF3nDiCjpxO4dW2tuN/0KDol+IIN
-# TJ/317qYDnhqEh8rqtoQUUv+wwAop2Tbok9N5B1Et/tu7t6GerrHn7KXXb3pmpaq
-# 2uFVEcnBKfWkvMSxlg==
+# CQQxFgQUZT/sxCocXWwgJN3gG6G0Htn+7N4wDQYJKoZIhvcNAQEBBQAEggEAVstU
+# XNDMH+2mzPDK0YiWhucaZnbPtzKzZoZFEwJhgyE4gFR7GlquziHGg6s8Jjea2f3x
+# wwPlww+4zydEhaGp87X5AFuKcpXWzNHdKcR7SkbJxkQZ7ejeElM0b42cMPw2AEaa
+# GT2gnAOdcfudl/N1QsmoITVHH5y0zClTV6SLTPzPmHFG+Q7WAW1htUcXFGlNlsxU
+# xgK4xbPt8I6hmXYNkIpsasg7JdkdYODunlz39Q8du5Eb72rsUAhJZE4CzVQq+8VT
+# 6i35mX9yA7HUcZnNdX4bBOcNIQIybC2vIc+/Hm7GNx5ZZEGp063fTJ7mAuw2zHkB
+# szj2qn4QExPZydYa4Q==
 # SIG # End signature block
