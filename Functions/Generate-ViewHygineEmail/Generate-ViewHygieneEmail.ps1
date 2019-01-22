@@ -10,9 +10,9 @@ function Generate-ViewHygieneEmail {
             [String]$FromEmail,
         [Parameter(Mandatory=$true)]
             [Array]$To,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
             [Array]$CC,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
             [Array]$BCC,
         [Parameter(Mandatory=$true)]
             [String]$Subject
