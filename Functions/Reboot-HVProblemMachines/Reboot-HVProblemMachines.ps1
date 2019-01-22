@@ -4,11 +4,7 @@
         [Parameter(Mandatory=$true)]
         [String]$HorizonCredStore,
         [Parameter(Mandatory=$true)]
-        [String]$vCenterCredStore,
-        [Parameter(Mandatory=$true)]
-        [String]$HorizonServer,
-        [Parameter(Mandatory=$true)]
-        [String]$vCenterServer
+        [String]$vCenterCredStore
 	)
 
 <#
@@ -68,8 +64,8 @@
 #                    Initialize                                   #
 ###################################################################
     # --- Connect to Horizon Connection Server API Service ---
-    $hvServer1 = Connect-HVServer -Server $HorizonServer -User $hvUser.User -Password $hvUser.Password
-    Connect-VIServer -Server $vCenterServer -User $viUser.User -Password $viUser.Password
+    $hvServer1 = Connect-HVServer -Server $hvUser.Host -User $hvUser.User -Password $hvUser.Password
+    Connect-VIServer -Server $viUser.Host -User $viUser.User -Password $viUser.Password
 
     # --- Get Services for interacting with the View API Service ---
     $Services1 = $hvServer1.ExtensionData
@@ -104,8 +100,8 @@
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUzl0DH9UglY8QIVQRqk3HPJ6e
-# WlSgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUztsiIqig6RsY8SmUC8gxYYjw
+# z+GgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -141,11 +137,11 @@
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUSbU5zGoHgW1pE+gtxNiecAuLgNIwDQYJKoZIhvcNAQEBBQAEggEABA6f
-# x/UI+H8zjtV8dc7nkWOpqv4snMKFkzsjPLI2bIvW0HNOL0a5cwkdfu+ds5zapaR4
-# PRKBN8tbcvv7/gKYqi0Jf42MZ3xOLEzKplC3wML3GKKF2/AMaevmn3Z4JcXMdRPV
-# PBuQI4I4Yy/0xukbf3rBmo+2zGlJPMF8lPLi1pV1EnxXGFQjjEvt5bZXUXXs6NeU
-# dmP1W2J8AAN9IyMR8sljLR2oIArpG2zZeJ51/PvQXTr96cU0n86KOHn/TcJ2xVTu
-# sYVf4rKY+q4PHFzdcxmmpLR2AQy/eoaYeHwGeSAEENQVNyirF/8LY/4bjaSfSYus
-# 9wrrCZ+U0vrXMQuBDw==
+# CQQxFgQU8y5tkiOokAutJzWodLdT7dQ74JkwDQYJKoZIhvcNAQEBBQAEggEAZWnP
+# hxWGpYjYXiqFS0PvNxleDG6nu/tVBeijCBi3W6RPkrwn+53lk+sRekA5JocjvadJ
+# IEDrGy08GXD3YNUQVEOx6Ru/JL/q82rKI7JqF6qlt4rZ2tU4OT5TQiS0doBH/yEn
+# 49bMEA0kA2cKCOLNVjIc3E/5VyFTEp1o7W5U8nc/7oj/N4buNpM/NfBU1YMvAH5M
+# Gk6JWApLN7x+TzeVDhtwVikAYs1P1HD2G6Fm4PHSRMwqeO30tQlTs89e/48jhMjZ
+# EnUgntMFfrf4puXVT01ghxzzaVOPoinnnAlRE1w+bgYOJ2swQB0SAz0GVmDwAsKi
+# qaPEyFbm1VHGsWNLRw==
 # SIG # End signature block
