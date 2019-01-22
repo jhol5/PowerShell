@@ -1,4 +1,4 @@
-function Generate-ViewHygieneEmail {
+﻿function Generate-ViewHygieneEmail {
 
     [CmdletBinding()]
 	Param(
@@ -12,10 +12,10 @@ function Generate-ViewHygieneEmail {
             [Array]$To,
         [Parameter(Mandatory=$false)]
             [AllowEmptyCollection()]
-            [Array]$CC,
+            [String]$CC,
         [Parameter(Mandatory=$false)]
             [AllowEmptyCollection()]
-            [Array]$BCC,
+            [String]$BCC,
         [Parameter(Mandatory=$true)]
             [String]$Subject
 	)
@@ -66,7 +66,12 @@ function Generate-ViewHygieneEmail {
 
     $Body = $Body + '</table>'
 
-    Send-MailMessage -SmtpServer $SMTPServer -From $FromEmail -To $To -Subject $Subject -BodyAsHtml $Body
+    $command = 'Send-MailMessage -SmtpServer $SMTPServer -From $FromEmail -Subject $Subject -BodyAsHtml $Body -To $To'
+
+    if($CC) {$command += ' -CC $CC'}
+    if($BCC) { $command += ' -BCC $BCC'}
+
+    Invoke-Command $command
 
 # End Main
 }
@@ -74,8 +79,8 @@ function Generate-ViewHygieneEmail {
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUo2ZecYFnFX8XkLV6KFdHVtbH
-# I7ugggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQULj0HyySCspHDphO2dDD1UcXD
+# vm2gggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -111,11 +116,11 @@ function Generate-ViewHygieneEmail {
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUnLSvGvQh9Mp6qW9slKDtRBpMMqYwDQYJKoZIhvcNAQEBBQAEggEAd6JT
-# HvrtcZSMgRMl2h1PJ5hcXouCmNxBK14fmmqdRcslh20+TAv4wKBePKqZvxLx51do
-# npqCsscDVL4JEvfAU8S97bxOH33sDdHBfFyLsah9iQKPey0XvHMV54wvE743QABE
-# XPpITlNtKLKC/PNBYvHYeVa0xsAdPN8ULN4fh7NqQxfQC/Ajut6bT7AnLHwfLmzp
-# 514ufzqRC5WWZKty/3hvwWq396p4yNcfbLuXzMWG9iYhkZJ1aG4o0q1hJ4nmCs8y
-# 2mis0N7nbsBpDH/etzKdBJ+J0AhXwSHu/A/FiCiNCgfGeUaNbBZ7Z5wjm6KHPTbU
-# jmzUBOTf36NDJhYTng==
+# CQQxFgQUD7JXZiGmU6Yyw1Uuwb/VMS90bK8wDQYJKoZIhvcNAQEBBQAEggEAQKNc
+# vGVe6EJJ23ryCEyzvnNnJv998MG3L/nKnfoEj4RQvG2h4zk3lXuShmZFKOYPSqqG
+# N3nAOtp5LVstsSjUQMMP0jWsAjp/mJFhU/jNLLeAUsLx+X11IeY6QyC8YS2Ml9Tb
+# kc4g5M3IUdwG596CgLgaB+eXlo5Hx5rk8gn1phMJQ2okpvdy/jOFgbwmzxV42+KL
+# fEUrimh+dAte02uAoI9nJzmL2+l2Fg0wcZGJTTQUwGC5kH3dD3UIFniMre4wG+rm
+# Qmb3/5UTCdiYueqRaipfCQ8bD+TBs0SwzGVp6Ny9xeYxwWdHClySP83fHUSmTS8N
+# uiG/szt8k+XZE8Dq8w==
 # SIG # End signature block
