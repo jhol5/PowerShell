@@ -10,12 +10,6 @@
             [String]$FromEmail,
         [Parameter(Mandatory=$true)]
             [Array]$To,
-        [Parameter(Mandatory=$false)]
-            [AllowEmptyCollection()]
-            [String]$CC,
-        [Parameter(Mandatory=$false)]
-            [AllowEmptyCollection()]
-            [String]$BCC,
         [Parameter(Mandatory=$true)]
             [String]$Subject
 	)
@@ -79,8 +73,8 @@
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQULj0HyySCspHDphO2dDD1UcXD
-# vm2gggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUetvbCS0f6M9mpV44+idekpmX
+# WjKgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -116,11 +110,11 @@
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUD7JXZiGmU6Yyw1Uuwb/VMS90bK8wDQYJKoZIhvcNAQEBBQAEggEAQKNc
-# vGVe6EJJ23ryCEyzvnNnJv998MG3L/nKnfoEj4RQvG2h4zk3lXuShmZFKOYPSqqG
-# N3nAOtp5LVstsSjUQMMP0jWsAjp/mJFhU/jNLLeAUsLx+X11IeY6QyC8YS2Ml9Tb
-# kc4g5M3IUdwG596CgLgaB+eXlo5Hx5rk8gn1phMJQ2okpvdy/jOFgbwmzxV42+KL
-# fEUrimh+dAte02uAoI9nJzmL2+l2Fg0wcZGJTTQUwGC5kH3dD3UIFniMre4wG+rm
-# Qmb3/5UTCdiYueqRaipfCQ8bD+TBs0SwzGVp6Ny9xeYxwWdHClySP83fHUSmTS8N
-# uiG/szt8k+XZE8Dq8w==
+# CQQxFgQU/qVbdATLZJeRvHq0mWUgX3+OYcAwDQYJKoZIhvcNAQEBBQAEggEABxOe
+# UgpUw5F1CkyurcLMmryQRmYDenfyh75/QrIJD8qCaAIipoovlP6ujjetjLVosGK6
+# W/MulfcUDNddO6qX5O913+wwEoxQ5gC3Yu0Nhxwg8b5jTBlCqmWmf5ou9CO0yW10
+# exkkauvffSU5K0m+K3yZhQcQVLM2ROi7Sp8pETidA0mEvDDtXJg/lNHraNjiyDUG
+# uQXvtWlC7xMJM2A4GXIrOsNfoGjXsKDARMPtDSy+BRKjWC6Ar2pzx/njhoOoXCYc
+# 0QktVqWksWF8mBQKtxKHCfDkp3iKsmYJfGu+7MYMdw+JwgEk0AL11kXkkoThtgjN
+# eoC+929Cqxdz74jdMw==
 # SIG # End signature block
