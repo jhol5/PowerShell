@@ -2,9 +2,7 @@ function Get-HVProblemMachines {
     [CmdletBinding()]
 	Param(
         [Parameter(Mandatory=$true)]
-        [String]$HorizonCredStore,
-        [Parameter(Mandatory=$true)]
-        [String]$HorizonServer
+        [String]$HorizonCredStore
 	)
 
 <#
@@ -16,7 +14,7 @@ function Get-HVProblemMachines {
 	The original script is at the end of this page, above the summary: https://blogs.vmware.com/euc/2017/01/vmware-horizon-7-powercli-6-5.html. I have removed the reboot and need to connect to vCenter and changed how the script authenticates to the View Admin server.
 
 	.EXAMPLE
-		Get-HVProblemMachines -HorizonCredStore C:\Scripts\credfileview.xml -HorizonServer 'hva.mydomain.com'
+		Get-HVProblemMachines -HorizonCredStore C:\Scripts\credfileview.xml
 
 	.NOTES
 		Original Author             : Praveen Mathamsetty.
@@ -29,7 +27,7 @@ function Get-HVProblemMachines {
 		===Tested Against Environment====
 		Horizon View Server Version : 7.4.0
 		PowerCLI Version            : PowerCLI 6.5, PowerCLI 6.5.1
-		PowerShell Version          : 5.0
+		PowerShell Version          : 5.0, 5.1
 
 #>
 	# --- Import the PowerCLI Modules required ---
@@ -43,7 +41,7 @@ function Get-HVProblemMachines {
 ###################################################################
 
     #Import Credentail Files New-VICredentialStoreItem -host <vcenter server IP address> -user <username> -password <password> -file C:\Scripts\credfilevcenter.xml
-    $csUser = Get-VICredentialStoreItem -File $CredFile
+    $hvUser = Get-VICredentialStoreItem -File $CredFile
 
     $baseStates = @(
         'PROVISIONING_ERROR',
@@ -63,8 +61,8 @@ function Get-HVProblemMachines {
 #                    Initialize                                   #
 ###################################################################
     # --- Connect to Horizon Connection Server API Service ---
-    $hvServer1 = Connect-HVServer -Server $HorizonServer -User $csUser.User -Password $csUser.Password
-
+    $hvServer1 = Connect-HVServer -Server $hvUser.Host -User $hvUser.User -Password $hvUser.Password
+    
     # --- Get Services for interacting with the View API Service ---
     $Services1 = $hvServer1.ExtensionData
 
@@ -92,8 +90,8 @@ function Get-HVProblemMachines {
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1CF8YTDHyhtbKNKQZwjvJycN
-# 4pGgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU+m7M+nh3KgAvOG62Yi63vrwI
+# 3HSgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -129,11 +127,11 @@ function Get-HVProblemMachines {
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQUiJBXkirZCYF0KjaeRvUclr2SWUowDQYJKoZIhvcNAQEBBQAEggEAc8Kf
-# vgAFE3s9Q6E6oDzoOfpNXaO/QUjwEVAfbpfRTe757IdPOb/PQxbpFCRYlDhwVirX
-# fW5qGCp9QuTsQIO4M7LzACEqZr+9z3/cJyo+JPOSrD8+aOpqL/k47s0PtwmnjSTw
-# TrLckjQKy6M2fAJv0fCG1SV0EPDTVx03a3s/KLpHOdNu/ngeDNKxiJt/2mzknXPv
-# +tfvr6BSoJuSv3Ebgjcw4W2p1Pp2aHvtaIv91WDCUATKKw/lNSN8Q/1gW6gfJR9V
-# oY8CaHQ7BNr8adTYQrCrU6664vTLJp/TjcH5O/gNbCH1hu9iR/UuuggwrrhQdLO8
-# JgLeBROeLUQLfshbxA==
+# CQQxFgQU6m8XjFs0Ts7DP83RRRVW5/De95wwDQYJKoZIhvcNAQEBBQAEggEAIi+k
+# amMCN/iG5yY8oVaopqVqMCFS0eVfaeCQHKMR0pgODIZ80skd8WJCIpsSKa4DD88w
+# g1zeO40WLGElQJHV+svgU0AbOjlvMGulOFZIfHT4gga2WCzkK8w0ssDOzHKFS7qV
+# ZUpDR9nJIjgFTONNDL2dPkeY580lYiNK0jB1RbCJKptYfnQiOIR2zNFpqjxpyZmn
+# izQC4Uh3woVkNxficetHBa07vGB7K2MnLdo/QF3nDiCjpxO4dW2tuN/0KDol+IIN
+# TJ/317qYDnhqEh8rqtoQUUv+wwAop2Tbok9N5B1Et/tu7t6GerrHn7KXXb3pmpaq
+# 2uFVEcnBKfWkvMSxlg==
 # SIG # End signature block
