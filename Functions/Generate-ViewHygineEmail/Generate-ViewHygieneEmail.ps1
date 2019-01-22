@@ -71,7 +71,7 @@
     if($CC) {$command += ' -CC $CC'}
     if($BCC) { $command += ' -BCC $BCC'}
 
-    Invoke-Command $command
+    Invoke-Expression $command
 
 # End Main
 }
