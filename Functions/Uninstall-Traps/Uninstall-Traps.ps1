@@ -9,7 +9,7 @@
         Uninstall-Traps -Password my_password
 
     .NOTES
-        URL				: 
+        URL				: https://github.com/jhol5/PowerShell/blob/master/Functions/Uninstall-Traps/Uninstall-Traps.ps1
         Author			: Joshua Holcomb
         Email		    : joshua.holcomb@tjc.edu
         Version         : 1.0
