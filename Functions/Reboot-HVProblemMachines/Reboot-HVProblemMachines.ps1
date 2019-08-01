@@ -23,7 +23,7 @@
 		Original Author email       : pmathamsetty@vmware.com
 		Modified/Updated By			: Joshua Holcomb
 		Modified/Updated email		: joshua.holcomb@tjc.edu
-		Version                     : 1.0.1
+		Version                     : 1.0.2
 		Dependencies                : Make sure to have loaded VMware.HvHelper module loaded on your machine, see: https://blogs.vmware.com/euc/2017/01/vmware-horizon-7-powercli-6-5.html. Also it's state later in the script but you need to run "New-VICredentialStoreItem -host <vcenter server IP address> -user <username> -password <password> -file C:\Scripts\credfilevcenter.xml" to generate a secure encryped credental file first.
 
 		===Tested Against Environment====
@@ -89,8 +89,8 @@
         }
         
         # --- Disconnect from View Admin ---
-        Disconnect-HVServer -Server $HorizonServer -Confirm:$false | Out-Null
-        Disconnect-VIServer -Server $vCenterServer -Confirm:$false | Out-Null
+        Disconnect-HVServer -Server $hvUser.Host -Confirm:$false | Out-Null
+        Disconnect-VIServer -Server $viUser.Host -Confirm:$false | Out-Null
     } else {
         Write-Output "", "Failed to login in to server."
     }
@@ -100,8 +100,8 @@
 # SIG # Begin signature block
 # MIIIeQYJKoZIhvcNAQcCoIIIajCCCGYCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUztsiIqig6RsY8SmUC8gxYYjw
-# z+GgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUxa0iRxB0Ter6ZC9SwfaR5H0F
+# o/CgggXOMIIFyjCCBLKgAwIBAgITFQAAByMkUpCwipe3DwAAAAAHIzANBgkqhkiG
 # 9w0BAQsFADBdMRUwEwYKCZImiZPyLGQBGRYFbG9jYWwxEzARBgoJkiaJk/IsZAEZ
 # FgN0amMxEjAQBgoJkiaJk/IsZAEZFgJhZDEbMBkGA1UEAxMSYWQtVzE2TUFJTkRD
 # UDAxLUNBMB4XDTE4MTAwODIxMDYwN1oXDTE5MTAwODIxMDYwN1owdDEVMBMGCgmS
@@ -137,11 +137,11 @@
 # LVcxNk1BSU5EQ1AwMS1DQQITFQAAByMkUpCwipe3DwAAAAAHIzAJBgUrDgMCGgUA
 # oHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkqhkiG9w0BCQMxDAYKKwYB
 # BAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGCNwIBFTAjBgkqhkiG9w0B
-# CQQxFgQU8y5tkiOokAutJzWodLdT7dQ74JkwDQYJKoZIhvcNAQEBBQAEggEAZWnP
-# hxWGpYjYXiqFS0PvNxleDG6nu/tVBeijCBi3W6RPkrwn+53lk+sRekA5JocjvadJ
-# IEDrGy08GXD3YNUQVEOx6Ru/JL/q82rKI7JqF6qlt4rZ2tU4OT5TQiS0doBH/yEn
-# 49bMEA0kA2cKCOLNVjIc3E/5VyFTEp1o7W5U8nc/7oj/N4buNpM/NfBU1YMvAH5M
-# Gk6JWApLN7x+TzeVDhtwVikAYs1P1HD2G6Fm4PHSRMwqeO30tQlTs89e/48jhMjZ
-# EnUgntMFfrf4puXVT01ghxzzaVOPoinnnAlRE1w+bgYOJ2swQB0SAz0GVmDwAsKi
-# qaPEyFbm1VHGsWNLRw==
+# CQQxFgQUR/5jNY9Cd/fdWxi8JuuI3bkPEvAwDQYJKoZIhvcNAQEBBQAEggEApAmJ
+# lHINHU6bD/bitHyX9EoeekpEDFyOPwwFfOlvsOOE06/MS4FLG8lK7vclvZPSnJN7
+# MwQO8rxS3FdDoGRzk8M2DMWhOsWHbxcaTFQvI/wcJYmDP4yQDWk1JDlTWMSpRVi+
+# QxksbzhEYWd25NDo8voQsyexp/vjyhM3g/sf6Y+ceggmT20WNjE0Pz3Owg+TbIeB
+# w0avKmX+Ts3SWolAF3/JlkyBEva4AX1jvXLGZu91k8VnyauDfJArB9xsrOmsl7/z
+# OERTkkIdCId//ynfAhTuPW6sgMCFkJk1JVJg5xMKQX5m7talBnSRrYN3HD5UXr65
+# yhqCKThKzKOCWX72Gg==
 # SIG # End signature block
